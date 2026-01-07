@@ -1,0 +1,360 @@
+<html>
+	<head>
+		<title>Vnyl Player</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="icon"
+			href="https://luckyleafartstudio.nekoweb.org/img/__%C3%97%C2%82__%C3%A0%C2%B3%C2%80_%C3%B0%C2%9D%C2%97%C2%89%C3%8D%C2%9C%C3%B0%C2%9D%C2%97%C2%88%C3%8D%C2%9C%C3%B0%C2%9D%C2%97%C2%8C%C3%8D%C2%9C%C3%B0%C2%9D%C2%97%C2%8D-removebg-preview.png"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+		/>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Mansalva&display=swap');
+
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: "Mansalva", sans-serif;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				background: #f5f5f5;
+				padding: 20px;
+			}
+
+			.player {
+				width: 350px;
+				height: auto;
+				background-image: url('https://i.pinimg.com/736x/ae/f7/5f/aef75f4d0663500be2207f202eeb3efe.jpg');
+				border-radius: 15px;
+				padding: 30px;
+				box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+			}
+
+			.vinyl-container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 20px;
+				position: relative;
+			}
+
+			.vinyl-record {
+				width: 180px;
+				height: 180px;
+				border-radius: 50%;
+				background: radial-gradient(circle at center, #1a1a1a 25%, #333 25%, #1a1a1a 26%, #333 27%, #1a1a1a 28%, #333 29%, #1a1a1a 30%, #333 31%, #1a1a1a 32%, #333 33%, #1a1a1a 34%, #333 35%, #1a1a1a 36%, #333 37%, #1a1a1a 38%, #333 39%, #1a1a1a 40%, #333 41%, #1a1a1a 42%, #333 43%, #1a1a1a 44%, #333 45%);
+				position: relative;
+				box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+				animation: spin 3s linear infinite;
+				animation-play-state: paused;
+			}
+
+			.vinyl-record.playing {
+				animation-play-state: running;
+			}
+
+			@keyframes spin {
+				from { transform: rotate(0deg); }
+				to { transform: rotate(360deg); }
+			}
+
+			.vinyl-center {
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-size: cover;
+				background-position: center;
+				border: 3px solid #1a1a1a;
+				box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+			}
+
+			.vinyl-hole {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background: #0a0a0a;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+			}
+
+			.song-info {
+				text-align: center;
+				margin-bottom: 5px;
+			}
+
+			.song-title {
+				font-family: "Indie Flower", cursive;
+				font-size: 24px;
+				color: #4a7c59;
+				font-weight: bold;
+				margin-bottom: 5px;
+			}
+
+			.song-artist {
+				font-family: "Indie Flower", cursive;
+				font-size: 18px;
+				color: #6b8e23;
+				margin-bottom: 15px;
+			}
+
+			.now-playing-text {
+				font-size: 12px;
+				color: #666;
+				margin-bottom: 15px;
+			}
+
+			.controls {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 20px;
+				margin-bottom: 20px;
+			}
+
+			.control-btn {
+				background: none;
+				border: none;
+				color: #4a7c59;
+				cursor: pointer;
+				transition: all 0.3s;
+				padding: 5px;
+			}
+
+			.control-btn:hover {
+				color: #6b8e23;
+				transform: scale(1.1);
+			}
+
+			.play-btn {
+				font-size: 50px;
+			}
+
+			.prev-btn, .next-btn {
+				font-size: 30px;
+			}
+
+			.progress-container {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin-top: 15px;
+			}
+
+			.time {
+				font-family: "Indie Flower", cursive;
+				font-size: 12px;
+				color: #666;
+				min-width: 40px;
+			}
+
+			.progress-bar {
+				flex: 1;
+				height: 6px;
+				background: #d0d0d0;
+				border-radius: 3px;
+				position: relative;
+				cursor: pointer;
+			}
+
+			.progress-fill {
+				height: 100%;
+				background: #6b8e23;
+				border-radius: 3px;
+				width: 0%;
+				transition: width 0.1s;
+				position: relative;
+			}
+
+			.progress-fill::after {
+				content: '';
+				width: 14px;
+				height: 14px;
+				background: white;
+				border: 2px solid #6b8e23;
+				border-radius: 50%;
+				position: absolute;
+				right: -7px;
+				top: 50%;
+				transform: translateY(-50%);
+				box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="player">
+			<div class="vinyl-container">
+				<div class="vinyl-record" id="vinyl">
+					<div class="vinyl-center" id="vinylCenter"></div>
+					<div class="vinyl-hole"></div>
+				</div>
+			</div>
+
+			<div class="song-info">
+				<div class="song-title" id="songTitle">date</div>
+				<div class="song-artist" id="songArtist">frad</div>
+				<div class="now-playing-text" id="nowPlaying">
+					Playing 1 of 4
+				</div>
+			</div>
+
+			<div class="controls">
+				<button class="control-btn prev-btn" id="prevBtn">
+					<i class="fa fa-step-backward"></i>
+				</button>
+				<button class="control-btn play-btn" id="playBtn">
+					<i class="fa fa-play-circle"></i>
+				</button>
+				<button class="control-btn next-btn" id="nextBtn">
+					<i class="fa fa-step-forward"></i>
+				</button>
+			</div>
+
+			<div class="progress-container">
+				<span class="time" id="currentTime">0:00</span>
+				<div class="progress-bar" id="progressBar">
+					<div class="progress-fill" id="progressFill"></div>
+				</div>
+				<span class="time" id="duration">0:00</span>
+			</div>
+		</div>
+
+		<script>
+			const vinyl = document.getElementById('vinyl');
+			const vinylCenter = document.getElementById('vinylCenter');
+			const songTitle = document.getElementById('songTitle');
+			const songArtist = document.getElementById('songArtist');
+			const nowPlaying = document.getElementById('nowPlaying');
+			const playBtn = document.getElementById('playBtn');
+			const prevBtn = document.getElementById('prevBtn');
+			const nextBtn = document.getElementById('nextBtn');
+			const progressBar = document.getElementById('progressBar');
+			const progressFill = document.getElementById('progressFill');
+			const currentTimeEl = document.getElementById('currentTime');
+			const durationEl = document.getElementById('duration');
+
+			let currentTrack = 0;
+			let isPlaying = false;
+			let audio = new Audio();
+			let updateInterval;
+
+			const tracks = [
+				{
+					name: "date",
+					artist: "frad",
+					image: "https://luckyleafartstudio.nekoweb.org/img/img1.jpg",
+					path: "https://luckyleafartstudio.nekoweb.org/song/frad%20-%20first%20date.mp3"
+				},
+				{
+					name: "Blue",
+					artist: "Yung kai",
+					image: "https://luckyleafartstudio.nekoweb.org/img/meow.png",
+					path: "https://luckyleafartstudio.nekoweb.org/song/blue%20(instrumental).mp3"
+				},
+				{
+					name: "Wave to earth",
+					artist: "love.",
+					image: "https://i.pinimg.com/736x/0d/c4/cf/0dc4cfc1575cd31a611b6e25a45cdff4.jpg",
+					path: "https://luckyleafartstudio.nekoweb.org/song/wave%20to%20earth%20-%20love.%20(Official%20Lyric%20Video).mp3"
+				},
+				{
+					name: "supernatural",
+					artist: "Ariana Grande",
+					image: "https://i.pinimg.com/736x/e2/20/65/e220652fe742b63da3e27573ddc3bb85.jpg",
+					path: "https://luckyleafartstudio.nekoweb.org/song/Ariana%20Grande%20-%20supernatural%20(lyric%20visualizer).mp3"
+				}
+			];
+
+			function loadTrack(index) {
+				const track = tracks[index];
+				audio.src = track.path;
+				vinylCenter.style.backgroundImage = `url(${track.image})`;
+				songTitle.textContent = track.name;
+				songArtist.textContent = track.artist;
+				nowPlaying.textContent = `Playing ${index + 1} of ${tracks.length}`;
+				progressFill.style.width = '0%';
+			}
+
+			function formatTime(seconds) {
+				const mins = Math.floor(seconds / 60);
+				const secs = Math.floor(seconds % 60);
+				return `${mins}:${secs.toString().padStart(2, '0')}`;
+			}
+
+			function updateProgress() {
+				if (audio.duration) {
+					const progress = (audio.currentTime / audio.duration) * 100;
+					progressFill.style.width = `${progress}%`;
+					currentTimeEl.textContent = formatTime(audio.currentTime);
+					durationEl.textContent = formatTime(audio.duration);
+				}
+			}
+
+			function togglePlay() {
+				if (isPlaying) {
+					audio.pause();
+					vinyl.classList.remove('playing');
+					playBtn.innerHTML = '<i class="fa fa-play-circle"></i>';
+					clearInterval(updateInterval);
+				} else {
+					audio.play();
+					vinyl.classList.add('playing');
+					playBtn.innerHTML = '<i class="fa fa-pause-circle"></i>';
+					updateInterval = setInterval(updateProgress, 100);
+				}
+				isPlaying = !isPlaying;
+			}
+
+			function nextTrack() {
+				currentTrack = (currentTrack + 1) % tracks.length;
+				loadTrack(currentTrack);
+				if (isPlaying) {
+					audio.play();
+				}
+			}
+
+			function prevTrack() {
+				currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+				loadTrack(currentTrack);
+				if (isPlaying) {
+					audio.play();
+				}
+			}
+
+			playBtn.addEventListener('click', togglePlay);
+			nextBtn.addEventListener('click', nextTrack);
+			prevBtn.addEventListener('click', prevTrack);
+
+			progressBar.addEventListener('click', (e) => {
+				const rect = progressBar.getBoundingClientRect();
+				const percent = (e.clientX - rect.left) / rect.width;
+				audio.currentTime = percent * audio.duration;
+				updateProgress();
+			});
+
+			audio.addEventListener('ended', () => {
+				nextTrack();
+				if (isPlaying) {
+					audio.play();
+				}
+			});
+
+			loadTrack(currentTrack);
+		</script>
+	</body>
+</html>
