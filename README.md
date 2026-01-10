@@ -5,6 +5,7 @@ Hello, I’m **Winona** (˶˃ ᵕ ˂˶) 👋
 This project is a **simple vinyl music player design** inspired by old-fashioned record players. It is created as a beginner-friendly project while I learn how to code and design user interfaces.
 
 ---
+![Vinyl Music Player](https://github.com/WinonaLaher2002/vinvylmusicplayer/blob/main/Vnyl-Player-01-10-2026_08_23_AM.png)
 
 ## ✨ Features
 
